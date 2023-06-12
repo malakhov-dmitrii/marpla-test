@@ -1,0 +1,188 @@
+@import '../../styles/variables.scss';
+
+.root {
+	position: relative;
+	height: 48px;
+	padding: 12px 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: inherit;
+	overflow: hidden;
+	user-select: none;
+	white-space: nowrap;
+	border-radius: 4px;
+	outline: none;
+	font-size: 16px;
+	transition: $transition;
+	&.fullWidth {
+		width: 100%;
+	}
+	&.loading {
+		pointer-events: none;
+
+		.preloader {
+			opacity: 1;
+		}
+		.startIcon,
+		.endIcon,
+		.label {
+			opacity: 0;
+		}
+	}
+	&.progress {
+		&:before {
+			content: '';
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0.2;
+			background-image: url('./loading.svg');
+			background-repeat: no-repeat;
+			background-position: 50% 0;
+			background-size: cover;
+		}
+	}
+
+	&.size-medium {
+		&.pl18 {
+			padding-left: 18px;
+		}
+		&.pr18 {
+			padding-right: 18px;
+		}
+	}
+	&.size-small {
+		height: 32px;
+		padding: 8px 12px;
+		font-size: 14px;
+	}
+
+	&.variant-primary {
+		background-color: $green-1;
+		color: white;
+
+		&:not([disabled]):hover {
+			background-color: $green-2;
+		}
+
+		&[disabled] {
+			color: fade-out(white, 0.5);
+			background-color: $green-1;
+		}
+	}
+
+	&.variant-secondary {
+		background-color: $shade-50;
+		color: $shade-800;
+
+		&:not([disabled]):hover {
+			background-color: $shade-100;
+		}
+
+		&[disabled] {
+			color: fade-out($shade-800, 0.5);
+			background-color: $shade-50;
+		}
+	}
+
+	&.variant-additional {
+		background-color: white;
+		color: $shade-800;
+		border: 1px solid $shade-100;
+
+		&:not([disabled]):hover {
+			background-color: $shade-100;
+		}
+
+		&[disabled] {
+			color: fade-out($shade-800, 0.5);
+			background-color: white;
+		}
+	}
+
+	&.variant-negative {
+		background-color: $red-1;
+		color: white;
+
+		&:not([disabled]):hover {
+			background-color: $red-2;
+		}
+
+		&[disabled] {
+			color: fade-out(white, 0.5);
+			background-color: $red-1;
+		}
+	}
+
+	&.variant-blue {
+		background-color: $sinka;
+		color: white;
+
+		&:not([disabled]):hover {
+			background-color: saturate($sinka, 0.5);
+		}
+
+		&[disabled] {
+			color: fade-out(white, 0.5);
+			background-color: $sinka;
+		}
+	}
+
+	@mixin icon {
+		position: relative;
+		font-size: inherit;
+		width: 24px;
+		height: 24px;
+		flex: none;
+		color: inherit;
+		z-index: 2;
+	}
+	.startIcon {
+		@include icon;
+		margin-right: 10px;
+	}
+	.endIcon {
+		@include icon;
+		margin-left: 10px;
+	}
+
+	.preloader {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		color: inherit;
+		transition: $transition;
+		opacity: 0;
+		z-index: 2;
+	}
+	.label {
+		color: inherit;
+		font-size: inherit;
+		line-height: 24px;
+		font-weight: 400;
+		z-index: 2;
+
+		&.pulse {
+			animation: pulse 2s ease-in-out infinite;
+		}
+	}
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.4;
+	}
+	100% {
+		opacity: 1;
+	}
+}

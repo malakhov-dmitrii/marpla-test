@@ -1,0 +1,12 @@
+@import '../../styles/variables.scss';
+
+.root {
+	padding: 12px 16px;
+	background: $shade-50;
+	&.transparent {
+		background: transparent;
+	}
+	&.borderBottom {
+		border-bottom: 1px solid $shade-100;
+	}
+}

@@ -1,0 +1,154 @@
+@import '../../styles/variables.scss';
+
+.wrapper {
+	&.fullWidth {
+		width: 100%;
+
+		.root {
+			width: 100%;
+		}
+	}
+
+	&.error {
+		.root {
+			border: 1px solid $red-1;
+		}
+
+		.helperText {
+			color: $red-1;
+			margin-top: 4px;
+		}
+	}
+
+	.root {
+		position: relative;
+		overflow: hidden;
+		background-color: white;
+		border: 1px solid $shade-100;
+		height: 48px;
+		border-radius: 4px;
+		display: flex;
+
+		&.multiline {
+			height: unset;
+
+			.inputArea {
+				.input {
+					word-wrap: break-word;
+					height: 200px;
+					resize: vertical;
+					overflow: auto;
+				}
+			}
+		}
+
+		.inputArea {
+			position: relative;
+			display: flex;
+			flex-grow: 1;
+
+			.icon {
+				position: absolute;
+				top: 12px;
+				left: 12px;
+				width: 24px;
+				height: 24px;
+				color: $shade-500;
+			}
+
+			.input {
+				//all: unset;
+				border: none;
+				outline: none;
+				display: block;
+				width: 100%;
+				padding: 12px 16px;
+				font-family: $font-family;
+				font-size: 16px;
+				color: $shade-800;
+				flex-grow: 1;
+
+				&.pl {
+					padding-left: 46px;
+				}
+
+				&.pr {
+					padding-right: 46px;
+				}
+
+				/*&:-internal-autofill-previewed,
+				&:-internal-autofill-selected,
+				&:-webkit-autofill::first-line,
+				&:-webkit-autofill,
+				&:-webkit-autofill:hover,
+				&:-webkit-autofill:focus,
+				&:-webkit-autofill:active {
+					-webkit-text-fill-color: $shade-800 !important;
+					-webkit-background-clip: text;
+					font-family: $font-family !important;
+					font-size: 16px;
+				}*/
+
+				&::placeholder {
+					/* Chrome, Firefox, Opera, Safari 10.1+ */
+					color: $shade-300;
+					opacity: 1; /* Firefox */
+				}
+
+				&[type='number'] {
+					-moz-appearance: textfield;
+
+					&::-webkit-outer-spin-button,
+					&::-webkit-inner-spin-button {
+						-webkit-appearance: none;
+						margin: 0;
+					}
+				}
+			}
+
+			.clearIcon {
+				position: absolute;
+				top: 11px;
+				right: 11px;
+				width: 24px;
+				height: 24px;
+				min-width: 24px;
+				border-radius: 50%;
+				color: $shade-500;
+				cursor: pointer;
+			}
+		}
+
+		.startActions {
+			flex: none;
+			height: 100%;
+			padding: 8px;
+			display: flex;
+			gap: 8px;
+			align-items: center;
+			border-right: 1px solid $shade-100;
+
+			& > * {
+				flex: none;
+			}
+		}
+
+		.endActions {
+			flex: none;
+			height: 100%;
+			padding: 8px;
+			display: flex;
+			gap: 8px;
+			align-items: center;
+			border-left: 1px solid $shade-100;
+
+			& > * {
+				flex: none;
+			}
+		}
+	}
+
+	.helperText {
+		margin-top: 4px;
+	}
+}

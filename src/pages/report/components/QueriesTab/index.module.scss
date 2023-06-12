@@ -1,0 +1,59 @@
+@import '../../../../styles/variables.scss';
+
+.name {
+	display: flex;
+	align-items: center;
+
+	svg {
+		margin-right: 10px;
+	}
+}
+
+.radios {
+	flex-direction: row;
+	margin: -4px 0;
+}
+
+.chartActions {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	.firstRow {
+		position: relative;
+		margin-bottom: 10px;
+
+		.infoButton {
+			position: absolute;
+			top: -20px;
+			right: -20px;
+			border-radius: 50%;
+		}
+	}
+
+	.parsingCard {
+		height: 100%;
+
+		.parsingCardContent {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			height: 100%;
+			padding-top: 8px;
+			padding-bottom: 8px;
+
+			.progress {
+				height: 6px;
+				font-size: 14px;
+			}
+		}
+	}
+}
+
+.editBtnTab {
+	pointer-events: none;
+
+	.editBtnRef {
+		pointer-events: all;
+	}
+}

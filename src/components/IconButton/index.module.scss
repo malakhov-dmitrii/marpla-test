@@ -1,0 +1,124 @@
+@import '../../styles/variables.scss';
+
+.root {
+	position: relative;
+	height: 48px;
+	width: 48px;
+	min-width: 48px;
+	border-radius: 4px;
+	padding: 4px;
+	outline: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: $transition;
+
+	&[disabled] {
+		opacity: 0.6;
+		pointer-events: none;
+	}
+
+	&.size-medium {
+		height: 32px;
+		width: 32px;
+		min-width: 32px;
+	}
+
+	&.size-small {
+		height: 24px;
+		width: 24px;
+		min-width: 24px;
+		padding: 0;
+	}
+
+	&.variant-primary {
+		background-color: $green-1;
+		color: white;
+
+		&:not([disabled]):hover {
+			background-color: $green-2;
+		}
+
+		&[disabled] {
+			color: fade-out(white, 0.5);
+			background-color: $green-1;
+		}
+	}
+
+	&.variant-secondary {
+		background-color: $shade-50;
+		color: $shade-800;
+
+		&:not([disabled]):hover {
+			background-color: $shade-100;
+		}
+
+		&[disabled] {
+			color: fade-out($shade-800, 0.5);
+			background-color: $shade-50;
+		}
+	}
+
+	&.variant-additional {
+		background-color: white;
+		color: $shade-800;
+		border: 1px solid $shade-100;
+
+		&:not([disabled]):hover {
+			background-color: $shade-100;
+		}
+
+		&[disabled] {
+			color: fade-out($shade-800, 0.5);
+			background-color: white;
+		}
+	}
+
+	&.variant-negative {
+		background-color: $red-1;
+		color: white;
+
+		&:not([disabled]):hover {
+			background-color: $red-2;
+		}
+
+		&[disabled] {
+			color: fade-out(white, 0.5);
+			background-color: $red-1;
+		}
+	}
+
+	&.variant-blue {
+		background-color: $sinka;
+		color: white;
+
+		&:not([disabled]):hover {
+			background-color: saturate($sinka, 0.5);
+		}
+
+		&[disabled] {
+			color: fade-out(white, 0.5);
+			background-color: $sinka;
+		}
+	}
+
+	&.variant-small {
+		background-color: transparent;
+		color: $shade-500;
+
+		&:not([disabled]):hover {
+			color: $shade-700;
+			background-color: $shade-50;
+		}
+	}
+
+	.preloader {
+		color: inherit;
+	}
+
+	.icon {
+		color: inherit;
+		width: 24px;
+		height: 24px;
+	}
+}

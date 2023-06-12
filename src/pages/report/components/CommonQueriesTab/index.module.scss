@@ -1,0 +1,26 @@
+@import '../../../../styles/variables.scss';
+
+.radios {
+	flex-direction: row;
+	margin: -4px 0;
+
+	& > *:not(.topRadios),
+	& > .topRadios > * {
+		margin: 4px 24px 4px 0;
+	}
+
+	.topRadios {
+		white-space: nowrap;
+		@media screen and (max-width: 1540px) {
+			white-space: unset;
+		}
+	}
+}
+
+.editBtnTab {
+	pointer-events: none;
+
+	.editBtnRef {
+		pointer-events: all;
+	}
+}

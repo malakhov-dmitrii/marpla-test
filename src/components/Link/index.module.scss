@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+
+.root {
+	font-size: inherit;
+	color: $blue;
+	text-decoration: none;
+
+	&.underline-always {
+		text-decoration: underline;
+	}
+	&.underline-hover {
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	&.block {
+		color: unset;
+		display: block;
+	}
+
+	&.inheritColor {
+		color: inherit;
+	}
+}

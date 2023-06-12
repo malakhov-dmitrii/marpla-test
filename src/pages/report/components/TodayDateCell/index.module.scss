@@ -1,0 +1,41 @@
+@import '../../../../styles/variables.scss';
+
+.todayCell {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	&.loading {
+		& > *:first-child {
+			display: none !important;
+		}
+		& > *:last-child {
+			display: block !important;
+		}
+	}
+	& > *:first-child {
+		display: none;
+	}
+	& > *:last-child {
+		display: block;
+	}
+	&:hover {
+		& > *:first-child {
+			display: block;
+		}
+		& > *:last-child {
+			display: none;
+		}
+	}
+
+	.parseIcon {
+		cursor: pointer;
+		color: $shade-500;
+	}
+
+	.progress {
+		@extend .parseIcon;
+		margin: 3px;
+	}
+}

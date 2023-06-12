@@ -1,0 +1,13 @@
+.w600 {
+	width: 600px;
+}
+
+.filterButtonContainer {
+	width: 32px;
+	height: 32px;
+	overflow: hidden;
+
+	button:nth-child(1):has(+ button:nth-child(2)) {
+		display: none;
+	}
+}

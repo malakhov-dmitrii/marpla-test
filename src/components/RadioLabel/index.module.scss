@@ -1,0 +1,24 @@
+@import '../../styles/variables.scss';
+
+.root {
+	margin-left: 0;
+}
+
+.label {
+	color: $shade-800;
+	margin-left: 3px;
+	font-size: 14px;
+	font-weight: 500;
+	user-select: none;
+}
+
+.radio {
+	margin-left: -9px;
+	margin-top: -9px;
+	margin-bottom: -9px;
+}
+
+.count {
+	opacity: 0.5;
+	margin-left: 8px;
+}

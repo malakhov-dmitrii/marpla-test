@@ -1,0 +1,41 @@
+{
+  "name": "seo-tables-test-task",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.4",
+    "@mui/x-data-grid-generator": "^5.17.19",
+    "@mui/x-data-grid-premium": "^6.0.0-beta.5",
+    "classnames": "^2.3.2",
+    "color": "^4.2.3",
+    "copy-to-clipboard": "^3.3.3",
+    "date-fns": "^2.29.3",
+    "escape-string-regexp": "^5.0.0",
+    "hotkeys-js": "^3.10.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-highlight-words": "^0.18.0",
+    "short-number": "^1.0.7",
+    "use-debounce": "^9.0.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@vitejs/plugin-react": "^3.0.0",
+    "eslint": "8.22.0",
+    "eslint-plugin-react": "^7.32.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.2",
+    "sass": "^1.57.1",
+    "vite": "^4.0.0"
+  }
+}

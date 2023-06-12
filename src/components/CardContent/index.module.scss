@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.root {
+	position: relative;
+	padding: 24px;
+	&.compact {
+		padding: 16px;
+	}
+}

@@ -1,0 +1,106 @@
+@import '../../styles/variables.scss';
+
+.toolbar {
+	display: flex;
+	gap: 16px;
+	flex-wrap: wrap;
+	margin-bottom: 24px;
+}
+
+.copyButton {
+	position: absolute;
+	z-index: 9;
+	box-shadow: 0 3px 10px -2px rgb(0 0 0 / 24%) !important;
+}
+
+.input {
+	width: 300px;
+}
+
+.columnsPanelRow:has(span[aria-disabled='true']) {
+	display: none;
+}
+
+.wrapper {
+	position: relative;
+
+	.root {
+		border: none;
+		border-radius: 0;
+
+		.main {
+			//border: 1px solid $shade-100;
+			box-shadow: 0 0 0 1px $shade-100; //i know that feel, bro
+			border-radius: 4px;
+
+			.columnHeaders {
+				border-bottom: 1px solid $shade-50;
+
+				.pinnedColumnHeaders {
+					background-color: white;
+				}
+
+				.columnHeader {
+					color: $shade-500;
+					font-size: 14px;
+					font-weight: 500;
+					border-color: $shade-50;
+					//padding-right: 6px;
+					&:focus-within,
+					&:focus {
+						outline: none;
+					}
+
+					.menuIcon {
+						margin-right: 0;
+						margin-left: 0;
+
+						.menuIconButton {
+							width: 6px;
+							height: 22px;
+							border-radius: 6px;
+						}
+					}
+				}
+			}
+
+			.row {
+				border-color: $shade-50;
+				background-color: white;
+				&.odd {
+					background-color: $shade-25;
+				}
+
+				.cell {
+					border-color: $shade-50;
+					color: $shade-500;
+					font-size: 14px;
+					line-height: 1.1em;
+					font-weight: 500;
+					&:focus-within,
+					&:focus {
+						outline: none;
+					}
+					&.selected {
+						background-color: skyblue;
+					}
+				}
+			}
+		}
+	}
+}
+
+.cellHeight {
+	height: 40px;
+	min-height: 40px;
+}
+
+.blueText {
+	color: $blue;
+}
+
+.highlight {
+	font-weight: 700;
+	background-color: transparent;
+	color: $blue;
+}

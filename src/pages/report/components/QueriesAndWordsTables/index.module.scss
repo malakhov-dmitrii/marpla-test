@@ -1,0 +1,166 @@
+@import '../../../../styles/variables.scss';
+
+.dialogText {
+	margin-bottom: 24px;
+}
+
+.lists {
+	cursor: pointer;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.updatedCell {
+	animation-duration: 5s;
+	animation-timing-function: linear;
+
+	&.up {
+		animation-name: up;
+		@keyframes up {
+			0% {
+				box-shadow: inset 0 0 0 2px $green-1;
+			}
+			100% {
+				box-shadow: inset 0 0 0 2px transparent;
+			}
+		}
+	}
+	&.down {
+		animation-name: down;
+		@keyframes down {
+			0% {
+				box-shadow: inset 0 0 0 2px $red-1;
+			}
+			100% {
+				box-shadow: inset 0 0 0 2px transparent;
+			}
+		}
+	}
+	&.same {
+		animation-name: same;
+		@keyframes same {
+			0% {
+				box-shadow: inset 0 0 0 2px $blue;
+			}
+			100% {
+				box-shadow: inset 0 0 0 2px transparent;
+			}
+		}
+	}
+}
+
+.dialogContent {
+	display: flex;
+	flex-direction: column;
+
+	.label {
+		font-size: 16px;
+		font-weight: 400;
+
+		.count {
+			display: inline-block;
+			background-color: fade-out($blue, 0.2);
+			color: white;
+			line-height: 1em;
+			padding: 2px 6px;
+			border-radius: 4px;
+			margin-left: 6px;
+		}
+	}
+
+	:global {
+		.MuiTypography-root {
+			flex-grow: 1;
+		}
+	}
+}
+
+.formControl {
+	overflow: auto;
+
+	.allWrapper {
+		padding: 0 24px 24px 24px;
+	}
+
+	.dialogCheckboxes {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		border-radius: 4px;
+		padding: 24px;
+		margin-bottom: 16px;
+		background-color: $shade-25;
+		overflow: auto;
+		flex-grow: 1;
+	}
+}
+
+.dialogTitle {
+	span {
+		color: $shade-500;
+	}
+}
+
+.tables {
+	width: 100%;
+	min-height: 200px;
+	display: flex;
+	&.showWordsTable {
+		& > div:nth-child(1) {
+			//width: 50% !important;
+			flex: none !important;
+
+			:global {
+				.MuiDataGrid-main {
+					border-top-right-radius: 0;
+					border-bottom-right-radius: 0;
+					border-right-color: $shade-50;
+				}
+			}
+		}
+
+		& > div:nth-child(3) {
+			display: block;
+			//width: 50% !important;
+			flex: none !important;
+		}
+	}
+
+	& > div:nth-child(1) {
+		//width: 100% !important;
+		flex: none !important;
+	}
+	& > div:nth-child(3) {
+		display: none;
+
+		:global {
+			.MuiDataGrid-main {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+				border-left-width: 0;
+			}
+		}
+	}
+
+	.tableTabsFlexContainer {
+		height: 100%;
+		width: 100%;
+		flex-wrap: nowrap;
+	}
+}
+
+.accentText {
+	color: $blue;
+}
+
+.moveTablesLine {
+	display: block;
+	width: 6px;
+	margin: 0 -3px;
+	z-index: 9;
+	//background-color: fade-out(red, 0.5);
+	flex: none;
+	cursor: col-resize;
+	user-select: none;
+}

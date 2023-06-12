@@ -1,0 +1,32 @@
+@import '../../styles/variables.scss';
+
+.root {
+	position: relative;
+	display: flex;
+	align-items: center;
+	color: inherit;
+
+	.icon {
+		flex: none;
+		color: inherit;
+		margin-right: 10px;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	.label {
+		margin-right: 10px;
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	.count {
+		opacity: 0.5;
+	}
+
+	.progress {
+		color: $shade-600;
+	}
+}
