@@ -41,6 +41,7 @@ import CheckboxBlankIcon from '../../../../icons/CheckboxBlank'
 
 import styles from './index.module.scss'
 import tableStyles from '../../../../components/DataGrid/index.module.scss'
+import { memo } from 'react'
 
 const nullOrUndefined = value => value === null || value === undefined
 
@@ -60,6 +61,7 @@ const sortComparator = (a, b) => {
 	return a - b
 }
 
+
 export default function CommonQueriesTables(props) {
 	const {
 		lists,
@@ -68,6 +70,9 @@ export default function CommonQueriesTables(props) {
 		queriesTabData,
 		existenceInProjectRadioValue,
 	} = props
+
+// console.log(queriesTabData);
+
 	const toolbarPortalRef = useRef()
 	const inputValueRef = useRef('')
 
@@ -217,109 +222,52 @@ export default function CommonQueriesTables(props) {
 				const isFilterActivated =
 					visibleWordsRows.current.length <
 					lists[rangeTab].words[radioValue].length
-				const getNewCheckedQueries = () => {
-					const newCheckedQueries = []
-					for (const rightTableRow of rightTableRows) {
-						if (
-							rightTableRow.words.some(word =>
-								visibleWordsRows.current.includes(word)
-							)
-						) {
-							newCheckedQueries.push(rightTableRow.q)
+				const indexOfPhrase = phraseId => {
+					return newCheckedWords.findIndex(word => {
+						const query = leftTableApiRef.current.getRow(word)
+						return query.phrases.includes(phraseId)
+					})
+				}
+
+				setCheckedQueries(prevCheckedQueries =>
+					prevCheckedQueries.reduce((acc, phraseId) => {
+						const idx = indexOfPhrase(phraseId)
+						if (idx !== -1) {
+							newCheckedWords.splice(idx, 1)
+							return [...acc, phraseId]
+						}
+						return acc
+					}, [])
+				)
+
+				if (isFilterActivated && newCheckedWords.length > 0) {
+					const filteredQueries = newCheckedWords.reduce((acc, word) => {
+						const queryPhrases = leftTableApiRef.current.getRow(word).phrases
+						const newIds = queryPhrases.filter(id => !acc.includes(id))
+						return [...acc, ...newIds]
+					}, [])
+
+					setCheckedQueries(prev =>
+						Array.from(new Set([...prev, ...filteredQueries]))
+					)
+				} else {
+					setCheckedQueries([])
+				}
+			} else {
+				const newCheckedQueries = newCheckedWords.reduce((acc, word) => {
+					const queryPhrases = leftTableApiRef.current.getRow(word).phrases
+					for (const queryId of checkedQueries) {
+						if (!queryPhrases.includes(queryId)) {
+							return acc
 						}
 					}
-					return newCheckedQueries
-				}
+					return [...acc, ...queryPhrases]
+				}, [])
 
-				if (
-					leftTableCheckAllCheckboxState.current === 'indeterminate' ||
-					leftTableCheckAllCheckboxState.current === 'unchecked'
-				) {
-					const newCheckedQueries = getNewCheckedQueries()
-					if (isFilterActivated) {
-						setCheckedQueries(prev =>
-							Array.from(new Set(prev.concat(newCheckedQueries)))
-						)
-					} else {
-						setCheckedQueries(newCheckedQueries)
-					}
-				} else {
-					if (isFilterActivated) {
-						setCheckedQueries(prev =>
-							prev.filter(
-								prevQueryId =>
-									!rightTableApiRef.current
-										.getRow(prevQueryId)
-										.words.some(word => visibleWordsRows.current.includes(word))
-							)
-						)
-					} else {
-						setCheckedQueries([])
-					}
-				}
-				return
-			}
-
-			const lastCheckedWord = arrayEnd(newCheckedWords)
-			setSelectedQueriesCells({[lastCheckedWord]: {queries_and_words: true}})
-			const newCheckedQueries = []
-			const checkboxStates = Object.fromEntries(
-				newCheckedWords.map(word => {
-					if (
-						checkedQueries.length > 0 &&
-						leftTableApiRef.current
-							.getRow(word)
-							.phrases.every(checkedQueryId =>
-								checkedQueries.includes(checkedQueryId)
-							)
-					) {
-						//fully checked
-						return [word, false]
-					} else {
-						return [word, true]
-					}
-				})
-			)
-			const checkedWordsTemp = Object.entries(checkboxStates)
-				// eslint-disable-next-line no-unused-vars
-				.filter(([_, state]) => state)
-				.map(([word]) => word)
-			for (let i = 0; i < rightTableRows.length; i++) {
-				const item = rightTableRows[i]
-				if (item.words.some(w => checkedWordsTemp.includes(w))) {
-					newCheckedQueries.push(item.q)
-				}
-			}
-
-			const concatCheckedQueries = Array.from(
-				new Set(newCheckedQueries.concat(checkedQueries))
-			)
-			const uncheckedWords = Object.entries(checkboxStates)
-				// eslint-disable-next-line no-unused-vars
-				.filter(([_, state]) => !state)
-				.map(([word]) => word)
-			if (uncheckedWords.length > 0) {
-				setCheckedQueries(
-					concatCheckedQueries.filter(
-						queryId =>
-							!rightTableApiRef.current
-								.getRow(queryId)
-								.words.some(word => uncheckedWords.includes(word))
-					)
-				)
-			} else {
-				setCheckedQueries(concatCheckedQueries)
+				setCheckedQueries(newCheckedQueries)
 			}
 		},
-		[
-			checkedQueries,
-			lists,
-			rangeTab,
-			radioValue,
-			rightTableRows,
-			rightTableApiRef,
-			leftTableApiRef,
-		]
+		[checkedQueries, lists, rangeTab, radioValue, leftTableApiRef.current]
 	)
 
 	useEffect(() => {
@@ -340,14 +288,13 @@ export default function CommonQueriesTables(props) {
 			Object.keys(
 				filterObject(
 					deferredSelectedQueriesCells,
-					(key, value) =>
-						value.queries_and_words === true //todo: remove key !== "null" when stable
+					(key, value) => value.queries_and_words === true //todo: remove key !== "null" when stable
 				)
 			),
 		[deferredSelectedQueriesCells]
 	)
 
-	useEffect(() => {
+	const setRightTableRowsCallback = useDebouncedCallback(() => {
 		if (columnTab === 'words') {
 			const filteredQueries = lists[rangeTab].phrases[radioValue].map(item => {
 				const hasCheckedWords = item.words.some(word =>
@@ -363,6 +310,10 @@ export default function CommonQueriesTables(props) {
 			setRightTableRows(filteredQueries)
 			setTableRows([...lists[rangeTab].words[radioValue]])
 		}
+	}, 50)
+
+	useEffect(() => {
+		setRightTableRowsCallback()
 	}, [columnTab, lists, radioValue, rangeTab, pureSelectedWords])
 
 	useEffect(() => {
@@ -381,6 +332,8 @@ export default function CommonQueriesTables(props) {
 	}, [columnTab, showWordsTable])
 
 	const _tableRows = useMemo(() => {
+		if (!tableRows.length || !queriesTabData) return [];
+
 		if (existenceInProjectRadioValue === 'all') {
 			return [...tableRows]
 		}
@@ -711,22 +664,25 @@ export default function CommonQueriesTables(props) {
 						sortModel={queriesTableSortModel}
 						onSortModelChange={setQueriesTableSortModel}
 						onRowSelectionModelChange={setCheckedQueries}
-						rowSelectionModel={checkedQueries}
 						height={600}
-						slots={{Toolbar: undefined, BaseCheckbox: Checkbox}}
-						initialState={{
-							filter: {
-								filterModel: {
-									items: [
-										{
-											field: 'queries',
-											operator: 'isNotEmpty',
-										},
-									],
-								},
-							},
-						}}
 						checkboxSelection
+						 rowSelectionModel={checkedQueries}
+                        slots={{
+                            Toolbar: undefined,
+                            BaseCheckbox: Checkbox,
+                        }}
+                        initialState={{
+                            filter: {
+                                filterModel: {
+                                    items: [
+                                        {
+                                            field: 'queries',
+                                            operator: 'isNotEmpty',
+                                        },
+                                    ],
+                                },
+                            },
+                        }}
 						columns={[
 							{
 								...GRID_CHECKBOX_SELECTION_COL_DEF,

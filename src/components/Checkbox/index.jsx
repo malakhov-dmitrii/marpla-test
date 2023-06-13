@@ -8,7 +8,7 @@ import CheckboxIndeterminateIcon from '../../icons/CheckboxIndeterminate'
 
 import styles from './index.module.scss'
 
-export default forwardRef((props, ref) => {
+export default React.memo(forwardRef((props, ref) => {
 	const {color, disabled, onChange, checked, ...rest} = props
 
 	return (
@@ -23,4 +23,4 @@ export default forwardRef((props, ref) => {
 			{...rest}
 		/>
 	)
-})
+}))
